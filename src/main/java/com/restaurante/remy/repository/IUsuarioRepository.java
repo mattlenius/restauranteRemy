@@ -8,4 +8,3 @@ public interface IUsuarioRepository extends JpaRepository<UsuarioEntity,Integer>
     UsuarioEntity findByNombre(String nombre);
 
 }
-g
