@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UsuarioService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RestauranteRemy</a> &gt; <a href="index.source.html" class="el_package">com.restaurante.remy.service.impl</a> &gt; <span class="el_source">UsuarioService.java</span></div><h1>UsuarioService.java</h1><pre class="source lang-java linenums">package com.restaurante.remy.service.impl;
+
+import com.restaurante.remy.dataprovider.IUsuarioDataProvider;
+import com.restaurante.remy.dto.UsuarioDTO;
+import com.restaurante.remy.entity.UsuarioEntity;
+import com.restaurante.remy.mapping.UsuarioMapping;
+import com.restaurante.remy.service.IUsuaarioService;
+import lombok.AllArgsConstructor;
+
+import java.util.Objects;
+
+
+<span class="fc" id="L13">@AllArgsConstructor</span>
+public class UsuarioService implements IUsuaarioService {
+
+    private final IUsuarioDataProvider usuarioDataProvider;
+
+    @Override
+    public UsuarioDTO crearUsuario(UsuarioDTO usuarioDTO) {
+<span class="fc" id="L20">        UsuarioEntity usuario = usuarioDataProvider.findUsuarioNombre(usuarioDTO.getNombre());</span>
+<span class="pc bpc" id="L21" title="1 of 2 branches missed.">        if (Objects.isNull(usuario)){</span>
+<span class="fc" id="L22">            usuario = usuarioDataProvider.saveUsuario(new UsuarioMapping().usuarioEntityByDTO(usuarioDTO));</span>
+
+<span class="pc bpc" id="L24" title="1 of 2 branches missed.">            if (Objects.nonNull(usuario)){</span>
+<span class="fc" id="L25">                return new UsuarioMapping().usuarioDTO(usuario);</span>
+            }
+        }
+<span class="nc" id="L28">        return null;</span>
+    }
+
+    @Override
+    public UsuarioDTO actualizarUsuario(UsuarioDTO usuarioDTO) {
+<span class="fc" id="L33">        UsuarioEntity usuario = usuarioDataProvider.finIdUsuario(usuarioDTO.getId());</span>
+<span class="pc bpc" id="L34" title="1 of 2 branches missed.">        if(Objects.nonNull(usuario)){</span>
+<span class="fc" id="L35">            usuario = usuarioDataProvider.updateUsuario(new UsuarioMapping().usuarioEntityByDTO(usuarioDTO));</span>
+<span class="pc bpc" id="L36" title="1 of 2 branches missed.">            if(Objects.nonNull(usuario)){</span>
+<span class="fc" id="L37">                return  new UsuarioMapping().usuarioDTO(usuario);</span>
+            }
+        }
+<span class="nc" id="L40">        return null;</span>
+    }
+
+    @Override
+    public UsuarioDTO buscarUsuarioPorID(Integer idUsuario) {
+<span class="fc" id="L45">        UsuarioEntity usuario = usuarioDataProvider.finIdUsuario(idUsuario);</span>
+<span class="pc bpc" id="L46" title="1 of 2 branches missed.">        if (Objects.nonNull(usuario)){</span>
+<span class="fc" id="L47">            return  new UsuarioMapping().usuarioDTO(usuario);</span>
+        }
+<span class="nc" id="L49">        return null;</span>
+    }
+
+    @Override
+    public String borrarUsuario(UsuarioDTO usuarioDTO) {
+<span class="fc" id="L54">        UsuarioEntity usuario = new UsuarioMapping().usuarioEntityByDTO(usuarioDTO);</span>
+<span class="fc" id="L55">        usuario = usuarioDataProvider.finIdUsuario(usuario.getId());</span>
+<span class="pc bpc" id="L56" title="1 of 2 branches missed.">        if (Objects.nonNull(usuario)){</span>
+<span class="fc" id="L57">            usuarioDataProvider.deleteId(usuario);</span>
+<span class="fc" id="L58">            return &quot;Borro Exitosamente&quot;;</span>
+        }
+<span class="nc" id="L60">        return  &quot;no se borro exitosamente&quot;;</span>
+
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>

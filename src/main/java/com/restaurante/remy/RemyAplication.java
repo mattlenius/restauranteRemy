@@ -10,5 +10,6 @@ public class RemyAplication {
     public static void main(String[] args) {
         SpringApplication.run(RemyAplication.class, args);
     }
+
 }
 

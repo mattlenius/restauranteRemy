@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>JpaConfiguration.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">RestauranteRemy</a> &gt; <a href="index.source.html" class="el_package">com.restaurante.remy.configure</a> &gt; <span class="el_source">JpaConfiguration.java</span></div><h1>JpaConfiguration.java</h1><pre class="source lang-java linenums">package com.restaurante.remy.configure;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
+import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
+
+import javax.sql.DataSource;
+import java.util.Properties;
+
+@Configuration
+@EnableTransactionManagement
+<span class="nc" id="L15">public class JpaConfiguration {</span>
+
+
+    @Value(&quot;${spring.jpa.properties.hibernate.dialect}&quot;)
+    private String dialect;
+
+    @Bean
+    LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource){
+<span class="nc" id="L23">        LocalContainerEntityManagerFactoryBean entityManagerFactoryBean  = new LocalContainerEntityManagerFactoryBean();</span>
+<span class="nc" id="L24">        entityManagerFactoryBean.setDataSource(dataSource);</span>
+<span class="nc" id="L25">        entityManagerFactoryBean.setJpaVendorAdapter(new HibernateJpaVendorAdapter());</span>
+<span class="nc" id="L26">        entityManagerFactoryBean.setPackagesToScan(&quot;com.restaurante.remy.entity&quot;);</span>
+
+<span class="nc" id="L28">        Properties jpaProperties = new Properties();</span>
+<span class="nc" id="L29">        jpaProperties.put(&quot;hibernate.dialect&quot;,dialect);</span>
+
+<span class="nc" id="L31">        return entityManagerFactoryBean;</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.5.201910111838</span></div></body></html>
